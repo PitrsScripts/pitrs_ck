@@ -10,6 +10,3 @@ Fivem - Character Kill ESX/QBCORE
 # Dependency
 - ESX / QBCORE
 
-**Preview**
-
-https://www.youtube.com/watch?v=l_1Lw_TA03E
