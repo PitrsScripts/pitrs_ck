@@ -8,5 +8,5 @@ Fivem - Character Kill ESX/QBCORE
 - Full Configuration
 
 # Dependency
-- ESX / QBCORE
+- ESX 
 
