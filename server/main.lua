@@ -12,7 +12,7 @@ RegisterCommand('ck', function(source, args, rawCommand)
     local xPlayer = ESX.GetPlayerFromId(source)
     
     if not xPlayer then
-        TriggerClientEvent('esx:showNotification', source, 'Hráč nebyl nalezen.')
+        TriggerClientEvent('esx:showNotification', source, 'Player not found.')
         return
     end
 
@@ -25,25 +25,25 @@ RegisterCommand('ck', function(source, args, rawCommand)
     end
 
     if not hasPermission then
-        TriggerClientEvent('esx:showNotification', source, 'Nemáš oprávnění k provedení tohoto příkazu.')
+        TriggerClientEvent('esx:showNotification', source, 'You do not have permission to execute this command.')
         return
     end
 
     if not args[1] then
-        TriggerClientEvent('esx:showNotification', source, 'Nezadal jsi platné ID.')
+        TriggerClientEvent('esx:showNotification', source, 'You did not enter a valid ID.')
         return
     end
 
     local targetId = tonumber(args[1])
     if not targetId then
-        TriggerClientEvent('esx:showNotification', source, 'Nezadal jsi platné číslo ID.')
+        TriggerClientEvent('esx:showNotification', source, 'You did not enter a valid ID number.')
         return
     end
 
     local targetPlayer = ESX.GetPlayerFromId(targetId)
 
     if not targetPlayer then
-        TriggerClientEvent('esx:showNotification', source, 'Hráč s tímto ID nebyl nalezen.')
+        TriggerClientEvent('esx:showNotification', source, 'Player with this ID was not found.')
         return
     end
 
@@ -59,10 +59,10 @@ RegisterCommand('ck', function(source, args, rawCommand)
                 ['@identifier'] = identifier
             }, function(rowsChanged)
                 if rowsChanged > 0 then
-                    TriggerClientEvent('esx:showNotification', source, 'Na postavu s ID ' .. targetId .. ' bylo uděleno CK.')
-                    DropPlayer(targetId, 'Dostal jsi CK na postavu.')
+                    TTriggerClientEvent('esx:showNotification', source, 'A CK has been granted to the character with ID ' .. targetId .. '.')
+                    DropPlayer(targetId, 'You got a CK on a character.')
                 else
-                    TriggerClientEvent('esx:showNotification', source, 'Nastala chyba při provádění CK.')
+                    TriggerClientEvent('esx:showNotification', source, 'An error occurred during CK execution.')
                 end
             end)
         end)
