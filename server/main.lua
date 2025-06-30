@@ -1,4 +1,3 @@
-
 ESX = nil
 
 ESX = exports["es_extended"]:getSharedObject()
@@ -12,7 +11,7 @@ RegisterCommand('ck', function(source, args, rawCommand)
     local xPlayer = ESX.GetPlayerFromId(source)
     
     if not xPlayer then
-        TriggerClientEvent('esx:showNotification', source, 'Player not found.')
+        TriggerClientEvent('ox_lib:notify', source, {type = 'error', description = 'Player not found.'})
         return
     end
 
@@ -25,25 +24,25 @@ RegisterCommand('ck', function(source, args, rawCommand)
     end
 
     if not hasPermission then
-        TriggerClientEvent('esx:showNotification', source, 'You do not have permission to execute this command.')
+        TriggerClientEvent('ox_lib:notify', source, {type = 'error', description = 'You do not have permission to execute this command.'})
         return
     end
 
     if not args[1] then
-        TriggerClientEvent('esx:showNotification', source, 'You did not enter a valid ID.')
+        TriggerClientEvent('ox_lib:notify', source, {type = 'error', description = 'You did not enter a valid ID.'})
         return
     end
 
     local targetId = tonumber(args[1])
     if not targetId then
-        TriggerClientEvent('esx:showNotification', source, 'You did not enter a valid ID number.')
+        TriggerClientEvent('ox_lib:notify', source, {type = 'error', description = 'You did not enter a valid ID number.'})
         return
     end
 
     local targetPlayer = ESX.GetPlayerFromId(targetId)
 
     if not targetPlayer then
-        TriggerClientEvent('esx:showNotification', source, 'Player with this ID was not found.')
+        TriggerClientEvent('ox_lib:notify', source, {type = 'error', description = 'Player with this ID was not found.'})
         return
     end
 
@@ -52,17 +51,17 @@ RegisterCommand('ck', function(source, args, rawCommand)
     MySQL.Async.execute('DELETE FROM owned_vehicles WHERE owner = @identifier', {
         ['@identifier'] = identifier
     }, function(rowsChanged)
-        MySQL.Async.execute('DELETE FROM user_licenses WHERE identifier = @identifier', {
+        MySQL.Async.execute('DELETE FROM user_licenses WHERE owner = @identifier', {
             ['@identifier'] = identifier
         }, function(rowsChanged)
             MySQL.Async.execute('DELETE FROM users WHERE identifier = @identifier', {
                 ['@identifier'] = identifier
             }, function(rowsChanged)
                 if rowsChanged > 0 then
-                    TTriggerClientEvent('esx:showNotification', source, 'A CK has been granted to the character with ID ' .. targetId .. '.')
+                    TriggerClientEvent('ox_lib:notify', source, {type = 'success', description = 'A CK has been granted to the character with ID ' .. targetId .. '.'})
                     DropPlayer(targetId, 'You got a CK on a character.')
                 else
-                    TriggerClientEvent('esx:showNotification', source, 'An error occurred during CK execution.')
+                    TriggerClientEvent('ox_lib:notify', source, {type = 'error', description = 'An error occurred during CK execution.'})
                 end
             end)
         end)

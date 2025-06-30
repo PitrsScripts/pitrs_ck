@@ -1,7 +1,8 @@
 Config = {}
 
 Config.allowedGroups = {
-    'admin',        
-    'superadmin',   
-    'moderator',    
+    'admin', 
+    'developer',        
+    'management',   
+    'owner',    
 }
