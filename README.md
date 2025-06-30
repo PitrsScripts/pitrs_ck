@@ -1,5 +1,5 @@
 # Pitrs_CK
-Fivem - Character Kill ESX/QBCORE
+Fivem - Character Kill ESX
 
 
 # Features
